@@ -1,13 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
-from planetarium.models import ShowTheme
-
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the planetarium index.")
+from planetarium import serializers
+from planetarium.models import ShowTheme, AstronomyShow
 
 
 class ShowThemeViewSet(
@@ -16,4 +11,13 @@ class ShowThemeViewSet(
     GenericViewSet
 ):
     queryset = ShowTheme.objects.all()
-    serializer_class = None
+    serializer_class = serializers.ShowThemeSerializer
+
+
+class AstronomyShowViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    GenericViewSet
+):
+    queryset = AstronomyShow.objects.all()
+    serializer_class = serializers.AstronomyShowSerializer
