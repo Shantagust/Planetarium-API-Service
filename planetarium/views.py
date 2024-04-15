@@ -2,7 +2,12 @@ from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
 from planetarium import serializers
-from planetarium.models import ShowTheme, AstronomyShow
+from planetarium.models import (
+    ShowTheme,
+    AstronomyShow,
+    Reservation,
+
+)
 
 
 class ShowThemeViewSet(
@@ -21,3 +26,12 @@ class AstronomyShowViewSet(
 ):
     queryset = AstronomyShow.objects.all()
     serializer_class = serializers.AstronomyShowSerializer
+
+
+class ReservationViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    GenericViewSet
+):
+    queryset = Reservation.objects.all()
+    serializer_class = serializers.ReservationSerializer
